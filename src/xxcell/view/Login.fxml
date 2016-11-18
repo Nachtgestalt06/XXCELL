@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.LoginController">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="centerPane" prefHeight="320.0" prefWidth="290.0">
+          <children>
+              <Label fx:id="lblMensaje" layoutX="26.0" layoutY="224.0" minHeight="13.0" minWidth="69" prefHeight="13.0" prefWidth="239.0" />
+            <JFXTextField fx:id="username_box" labelFloat="true" layoutX="59.0" layoutY="55.0" promptText="Usuario" text="admin" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="55.0" />
+            <JFXPasswordField fx:id="password_box" labelFloat="true" layoutX="59.0" layoutY="142.0" promptText="Contraseña" text="root" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="142.0" />
+            <JFXButton fx:id="btnLogin" layoutX="108.0" layoutY="192.0" onAction="#actionLogin" ripplerFill="#1b74e1" text="Ingresar" />
+          </children>
+      </AnchorPane>
+   </children>
+</StackPane>

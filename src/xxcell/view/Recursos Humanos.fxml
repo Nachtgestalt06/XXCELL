@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76D7EA;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.RecursosHumanosController">
+   <children>
+      <JFXButton fx:id="AgregarEmp" accessibleText="AgregarEmpleado" layoutX="46.0" layoutY="131.0" onAction="#AddEmpleadoAction" prefHeight="139.0" prefWidth="207.0" style="-fx-background-color: #3AA8C1;" text="Agregar Empleado" />
+      <JFXButton fx:id="Modificar" accessibleText="ModificarEmpleado" layoutX="450.0" layoutY="130.0" prefHeight="140.0" prefWidth="210.0" text="Modificar RH" />
+   </children>
+</AnchorPane>

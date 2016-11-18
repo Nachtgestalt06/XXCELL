@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF5EE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.ConsultasController">
+   <children>
+      <JFXTextField fx:id="buscar" layoutX="226.0" layoutY="39.0" promptText="Producto" AnchorPane.leftAnchor="226.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="39.0" />
+      <TableView fx:id="Tabla" layoutX="41.0" layoutY="168.0" prefHeight="200.0" prefWidth="527.0" style="-fx-background-color: #FFD0B9;" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="168.0">
+         <columns>
+            <TableColumn fx:id="IDCol" text="ID" />
+            <TableColumn fx:id="ModCol" text="Modelo" />
+            <TableColumn fx:id="NomCol" prefWidth="75.0" text="Nombre" />
+            <TableColumn fx:id="MarcaCol" text="Marca" />
+            <TableColumn fx:id="TipoCol" prefWidth="75.0" text="Tipo" />
+            <TableColumn fx:id="PrPubCol" prefWidth="75.0" text="Precio Pub." />
+            <TableColumn fx:id="PrDisCol" prefWidth="75.0" text="Precio Dist" />
+            <TableColumn fx:id="DispCol" prefWidth="75.0" text="Disponibilidad" />
+            <TableColumn fx:id="L58Col" prefWidth="75.0" text="Local 58" />
+            <TableColumn fx:id="L64Col" prefWidth="75.0" text="Local 64" />
+            <TableColumn fx:id="L127Col" prefWidth="75.0" text="Local 127" />
+            <TableColumn fx:id="DesCol" prefWidth="75.0" text="Descripcion" />
+         </columns></TableView>
+      <JFXComboBox fx:id="Marca" layoutX="65.0" layoutY="93.0" promptText="Marca" />
+      <JFXComboBox fx:id="Tipo" layoutX="480.0" layoutY="93.0" promptText="Tipo" AnchorPane.rightAnchor="64.0" />
+      <JFXButton fx:id="filtrar" alignment="CENTER" layoutX="275.0" layoutY="93.0" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: #DA8A67;" text="Filtrar" textAlignment="CENTER" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" />
+      <JFXButton fx:id="reset" layoutX="250.0" layoutY="130.0" prefHeight="10.0" prefWidth="100.0" style="-fx-background-color: #DA8A67;" text="Reiniciar" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
+   </children>
+</AnchorPane>

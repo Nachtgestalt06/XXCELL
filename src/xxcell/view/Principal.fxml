@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.PrincipalController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <JFXToolbar BorderPane.alignment="CENTER">
+               <left>
+                  <JFXHamburger fx:id="titleBurger" BorderPane.alignment="CENTER">
+                      <animation>
+                          <HamburgerBackArrowBasicTransition />
+                      </animation>
+                  </JFXHamburger>
+               </left>
+            </JFXToolbar>
+         </top>
+         <center>
+            <JFXDrawer fx:id="drawer" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <Label fx:id="lblBottom" text="XXCELL - Punto de Venta" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>

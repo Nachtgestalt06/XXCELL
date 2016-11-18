@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.VentaController">
+   <children>
+      <BorderPane fx:id="paneBotones" onKeyPressed="#ActionDelete" prefHeight="200.0" prefWidth="200.0">
+         <bottom>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblImporteLetras" layoutX="14.0" layoutY="35.0" prefHeight="61.0" prefWidth="1118.0" style="-fx-border-color: #757575; -fx-background-color: #000000;" textFill="#37ff00" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+                     <font>
+                        <Font name="Consolas" size="24.0" />
+                     </font></Label>
+                  <Label layoutX="14.0" layoutY="14.0" text="Importe en letras" />
+                  <JFXTextField fx:id="txtCodigoBarras" disable="true" layoutX="14.0" layoutY="117.0" maxWidth="703.0" minWidth="616.0" prefHeight="60.0" prefWidth="703.0" promptText="Codigo de barras" style="-fx-border-color: #757575;" AnchorPane.bottomAnchor="23.0" />
+                  <Label fx:id="lblTotal" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="981.0" layoutY="117.0" prefHeight="60.0" prefWidth="205.0" style="-fx-background-color: #000000; -fx-border-color: #FFFFFF;" text="0.00" textAlignment="RIGHT" textFill="#2bff00" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="14.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="898.0" layoutY="119.0" prefHeight="59.0" prefWidth="25.0" text="\$" AnchorPane.rightAnchor="222.0">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblProductosCant" alignment="CENTER_RIGHT" layoutX="732.0" layoutY="118.0" prefHeight="60.0" prefWidth="141.0" style="-fx-border-color: #757575;" text="0" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="272.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="732.0" layoutY="101.0" text="Productos" AnchorPane.bottomAnchor="82.0" AnchorPane.rightAnchor="359.0" />
+                  <Label layoutX="14.0" layoutY="101.0" text="Codigo de barras" />
+                  <Label layoutX="926.0" layoutY="101.0" text="Total" AnchorPane.bottomAnchor="82.0" AnchorPane.rightAnchor="192.0" />
+                  <Label fx:id="lblUsuario" layoutX="1101.0" layoutY="5.0" />
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <GridPane prefHeight="67.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="228.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="845.0" minWidth="10.0" prefWidth="328.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="816.0" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="80.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXButton fx:id="btnCancelar" onAction="#ActionCancelar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cancelar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnCobrar" disable="true" onAction="#ActionCobrar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cobrar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnIniciar" onAction="#ActionIniciar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Iniciar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label fx:id="lblFecha" text="Aqui va la fecha" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnSearch" onAction="#BusquedaTabla" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Buscar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Spinner fx:id="spnFolio" prefHeight="62.0" prefWidth="150.0">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="40.0" right="5.0" />
+                     </GridPane.margin>
+                  </Spinner>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="30.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </top>
+         <center>
+            <TableView fx:id="tblProductos" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="tblColCodigo" prefWidth="164.0" text="Codigo" />
+                <TableColumn fx:id="tblColNombre" prefWidth="490.0" text="Nombre" />
+                  <TableColumn fx:id="tblColModelo" minWidth="0.0" prefWidth="158.0" text="Modelo" />
+                  <TableColumn fx:id="tblColPrecio" prefWidth="104.0" text="Costo" />
+                  <TableColumn fx:id="tblColCantidad" prefWidth="124.0" text="Cantidad" />
+                  <TableColumn fx:id="tblColDescuento" prefWidth="75.0" text="Descuento" />
+                  <TableColumn fx:id="tblColImporte" prefWidth="104.0" text="Importe" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
