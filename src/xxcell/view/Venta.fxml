@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.VentaController">
+<StackPane fx:id="rootVenta" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.VentaController">
    <children>
       <BorderPane fx:id="paneBotones" onKeyPressed="#ActionDelete" prefHeight="200.0" prefWidth="200.0">
          <bottom>
@@ -55,17 +55,19 @@
                 <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="228.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="80.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="845.0" minWidth="10.0" prefWidth="328.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="816.0" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="80.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="80.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="btnCancelar" onAction="#ActionCancelar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cancelar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnCobrar" disable="true" onAction="#ActionCobrar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cobrar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnIniciar" onAction="#ActionIniciar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Iniciar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnCancelar" onAction="#ActionCancelar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cancelar" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnCobrar" disable="true" onAction="#ActionCobrar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Cobrar" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnIniciar" onAction="#ActionIniciar" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Iniciar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Label fx:id="lblFecha" text="Aqui va la fecha" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnSearch" onAction="#BusquedaTabla" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Buscar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Spinner fx:id="spnFolio" prefHeight="62.0" prefWidth="150.0">
@@ -73,6 +75,9 @@
                         <Insets bottom="5.0" left="40.0" right="5.0" />
                      </GridPane.margin>
                   </Spinner>
+                  <JFXTextField fx:id="txtDescuento" nodeOrientation="RIGHT_TO_LEFT" text="0" GridPane.columnIndex="4" GridPane.valignment="BOTTOM" />
+                  <Label fx:id="lblDescuento" text="Aplic. Descuento" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                  <JFXButton fx:id="btnVentaEspera" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Venta  en&#10;espera" GridPane.columnIndex="3" />
                </children>
                <BorderPane.margin>
                   <Insets top="30.0" />

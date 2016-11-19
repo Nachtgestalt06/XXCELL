@@ -6,9 +6,6 @@
 package xxcell.model;
 
 import java.text.DecimalFormat;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -24,10 +21,11 @@ public class ProductoVenta {
     private StringProperty Cantidad;
     private StringProperty Importe;    
     private StringProperty Descuento;
+    private StringProperty Preciobase;
 
     DecimalFormat formateador = new DecimalFormat("####.00");
 
-    public ProductoVenta(String codigo, String nombre, String modelo, String cantidad, String precio, String descuento, String importe) {
+    public ProductoVenta(String codigo, String nombre, String modelo, String cantidad, String preciobase, String precio, String descuento, String importe) {
         this.Codigo = new SimpleStringProperty(codigo);
         this.Nombre = new SimpleStringProperty(nombre);
         this.Modelo = new SimpleStringProperty(modelo);
@@ -35,8 +33,8 @@ public class ProductoVenta {
         this.Precio = new SimpleStringProperty(precio);
         this.Importe = new SimpleStringProperty(importe);
         this.Descuento = new SimpleStringProperty(descuento);
+        this.Preciobase = new SimpleStringProperty(preciobase);
     }
-
 
     public void setDescuento(StringProperty Descuento) {
         this.Descuento = Descuento;
@@ -65,6 +63,10 @@ public class ProductoVenta {
     public void setImporte(StringProperty Importe) {
         this.Importe = Importe;
     }
+    
+    public void setPreciobase(StringProperty Preciobase) {
+        this.Preciobase = Preciobase;
+    }
 
     public String getCodigo() {
         return Codigo.get();
@@ -90,8 +92,12 @@ public class ProductoVenta {
         return Importe.get();
     }
     
-    public StringProperty getDescuento() {
-        return Descuento;
+    public String getDescuento() {
+        return Descuento.get();
+    }
+    
+    public String getPreciobase() {
+        return Preciobase.get();
     }
     
     public StringProperty codigoProperty() {
@@ -120,6 +126,10 @@ public class ProductoVenta {
     
     public StringProperty importeProperty() {
         return Importe;
+    }
+    
+    public StringProperty preciobaseProperty() {
+        return Preciobase;
     }
 
     public void setCantidadProperty(String cantidad) {
