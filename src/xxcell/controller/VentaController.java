@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -52,13 +53,22 @@ public class VentaController implements Initializable {
     
     @FXML
     private BorderPane paneBotones;
-
+    //*****************Botones del view ***************
     @FXML
     private JFXButton btnSearch;
     
     @FXML
     private JFXButton btnCancelar;
     
+    @FXML
+    private JFXButton btnCobrar;
+
+    @FXML
+    private JFXButton btnIniciar;
+    
+    @FXML
+    private JFXButton btnVentaEspera;
+    //****************Etiquetas del view *************
     @FXML
     private Label lblImporteLetras;
     
@@ -73,6 +83,7 @@ public class VentaController implements Initializable {
     
     //Lista para Llenar la tabla de productos;
     ObservableList<ProductoVenta> productosVenta = FXCollections.observableArrayList();
+    ObservableList<ObservableList<ProductoVenta>> auxProductosVenta = FXCollections.observableArrayList();
     
     @FXML
     private TableView<ProductoVenta> tblProductos;
@@ -111,15 +122,10 @@ public class VentaController implements Initializable {
     private Label lblProductosCant;
 
     @FXML
-    private JFXButton btnCobrar;
-
-    @FXML
-    private JFXButton btnIniciar;
-
-    @FXML
     private Spinner<Integer> spnFolio;
     
     boolean agruparProductos;
+    boolean flagVentaEspera = false;
     Conexion conn = new Conexion();
     
     int usuario;
@@ -516,6 +522,19 @@ public class VentaController implements Initializable {
 
     }
     
+    @FXML
+    void ActionVentaEspera(ActionEvent event) throws IOException {
+        Parent principal;
+        principal = FXMLLoader.load(getClass().getResource("/xxcell/view/Venta.fxml"));
+        Stage principalStage = new Stage();
+        scene = new Scene(principal);
+        principalStage.setScene(scene);
+        principalStage.setMaximized(true);
+        principalStage.initModality(Modality.APPLICATION_MODAL);
+        principalStage.initOwner(btnCancelar.getScene().getWindow());
+        principalStage.showAndWait();
+        
+    }    
     
     //Accion para suprimir la fila seleccionada con la tecla DELETE
     @FXML
@@ -569,6 +588,8 @@ public class VentaController implements Initializable {
         lblImporteLetras.setText(null);
         txtDescuento.setText("0");
         txtDescuento.setVisible(false);
+        btnVentaEspera.setDisable(true);
+        btnVentaEspera.setVisible(false);
                 
         HabilitaVenta(false);
     }
@@ -584,6 +605,8 @@ public class VentaController implements Initializable {
             txtDescuento.setDisable(!venta);
             txtDescuento.setVisible(venta);
             lblDescuento.setVisible(venta);
+            btnVentaEspera.setDisable(!venta);
+            btnVentaEspera.setVisible(venta);
             
     }
     
@@ -925,10 +948,6 @@ public class VentaController implements Initializable {
                 result = true;
 
         return result;
-    }
-    
-    public void inicializaAceleradores(){
-        
-    }
+    }   
     
 }

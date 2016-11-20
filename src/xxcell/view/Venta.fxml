@@ -77,7 +77,7 @@
                   </Spinner>
                   <JFXTextField fx:id="txtDescuento" nodeOrientation="RIGHT_TO_LEFT" text="0" GridPane.columnIndex="4" GridPane.valignment="BOTTOM" />
                   <Label fx:id="lblDescuento" text="Aplic. Descuento" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                  <JFXButton fx:id="btnVentaEspera" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Venta  en&#10;espera" GridPane.columnIndex="3" />
+                  <JFXButton fx:id="btnVentaEspera" onAction="#ActionVentaEspera" prefHeight="60.0" prefWidth="80.0" style="-fx-background-color: #757575;" text="Venta  &#10;en espera" GridPane.columnIndex="3" />
                </children>
                <BorderPane.margin>
                   <Insets top="30.0" />
