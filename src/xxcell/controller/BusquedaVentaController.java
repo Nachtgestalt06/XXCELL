@@ -21,6 +21,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
@@ -252,6 +254,19 @@ public class BusquedaVentaController implements Initializable {
                     stage.close();
                 }
             }
+        });
+        
+        Tabla.setOnKeyPressed(new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER){
+                    Variables_Globales.BusquedaVenta = Tabla.getSelectionModel().getSelectedItem();
+                    Stage stage;
+                    stage = (Stage) Tabla.getScene().getWindow();
+                    stage.close();
+                }
+            }
+            
         });
     }    
 }

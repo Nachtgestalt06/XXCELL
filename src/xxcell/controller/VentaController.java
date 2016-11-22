@@ -178,7 +178,7 @@ public class VentaController implements Initializable {
                 }            
             });
             
-            btnCobrar.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN), new Runnable(){
+            btnCobrar.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.C, KeyCombination.ALT_DOWN), new Runnable(){
                 @Override
                 public void run() {
                     btnCobrar.fire();
@@ -569,6 +569,56 @@ public class VentaController implements Initializable {
                         
             productoSeleccionado.forEach(todosProductos::remove);
             txtCodigoBarras.requestFocus();
+        }
+        
+        if(event.getCode() == KeyCode.ADD){
+            producto = tblProductos.getSelectionModel().getSelectedItem();
+            cantidad = producto.getCantidad();
+            precio = producto.getPrecio();
+            System.out.println(producto.getCodigo());
+            
+            //precio = productosVenta.get(fila).getPrecio().toString();
+
+            productos = Integer.valueOf(cantidad) + 1;
+            producto.setCantidadProperty(Integer.toString(productos));
+            //productosVenta.get(fila).setCantidadProperty(Integer.toString(productos));
+
+            productos = Integer.valueOf(lblProductosCant.getText()) + 1;
+            lblProductosCant.setText(String.valueOf(productos));
+
+            //Importe de la venta
+            total  = Double.valueOf(precio)*(Integer.valueOf(cantidad)+1);
+            producto.setImporteProperty(Double.toString(total));
+            //productosVenta.get(fila).setImporteProperty(Double.toString(total));
+
+            total = Double.valueOf(lblTotal.getText()) + Double.valueOf(precio);
+            lblTotal.setText(formateador.format(total));
+
+            tblProductos.refresh();
+            txtCodigoBarras.setText("");
+        }
+        
+        if(event.getCode() == KeyCode.SUBTRACT){
+            producto = tblProductos.getSelectionModel().getSelectedItem();
+            cantidad = producto.getCantidad();
+            if(Integer.valueOf(cantidad) < 1){
+                precio = producto.getPrecio();
+
+                productos = Integer.valueOf(cantidad) - 1;
+                producto.setCantidadProperty(Integer.toString(productos));
+
+                lblProductosCant.setText(String.valueOf(productos));
+
+                //Importe de la venta
+                total  = Double.valueOf(precio)*(Integer.valueOf(cantidad)-1);
+                producto.setImporteProperty(Double.toString(total));
+
+                total = Double.valueOf(lblTotal.getText()) - Double.valueOf(precio);
+                lblTotal.setText(formateador.format(total));
+
+                tblProductos.refresh();
+                txtCodigoBarras.setText("");
+            }
         }
     }
     
