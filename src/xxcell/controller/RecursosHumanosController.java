@@ -23,6 +23,10 @@ public class RecursosHumanosController implements Initializable {
 
     @FXML
     private JFXButton AgregarEmp;
+    
+    @FXML
+    private JFXButton Sueldos;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,8 +41,19 @@ public class RecursosHumanosController implements Initializable {
         scene = new Scene(principal);
         principalStage.setScene(scene);
         principalStage.initModality(Modality.APPLICATION_MODAL);
-        principalStage.setResizable(false);
         principalStage.initOwner(AgregarEmp.getScene().getWindow());
+        principalStage.showAndWait();
+    }
+    
+    @FXML
+    void VentanaSueldos(ActionEvent event) throws IOException {
+        Parent principal;
+        principal = FXMLLoader.load(getClass().getResource("/xxcell/view/Sueldos.fxml"));
+        Stage principalStage = new Stage();
+        scene = new Scene(principal);
+        principalStage.setScene(scene);
+        principalStage.initModality(Modality.APPLICATION_MODAL);
+        principalStage.initOwner(Sueldos.getScene().getWindow());
         principalStage.showAndWait();
     }
     

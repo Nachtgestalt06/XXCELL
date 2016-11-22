@@ -23,6 +23,13 @@ public class Empleados {
     public Empleados(){    
     }
     
+    public Empleados(String Usuario, String Nombre, String Apellido, int NumEmpleado, int Nivel){
+        this.Usuario = new SimpleStringProperty(Usuario);
+        this.Nombre = new SimpleStringProperty(Nombre);
+        this.Apellido = new SimpleStringProperty(Apellido);
+        this.NumEmp = new SimpleIntegerProperty(NumEmpleado);
+        this.Nivel = new SimpleIntegerProperty(Nivel);
+    }
     
     public Empleados(String Usuario, String Contra, String Nombre, String Apellido, String Direccion, String Telefono, int NumEmp, int Nivel, Date FechaAlta, String Referencia){
         this.Usuario = new SimpleStringProperty(Usuario);

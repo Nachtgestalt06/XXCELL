@@ -216,13 +216,31 @@ public class BusquedaVentaController implements Initializable {
         
         Filtrar.setOnAction((ActionEvent e) -> { 
             query = "Select * FROM productos ";
-            query += "WHERE Modelo='"+Modelo.getText()+"' AND Marca = '"+Marca.getValue()+"' AND Nombre = '"+Producto.getValue()+"'";
-            try {   
-                Tabla.refresh();
-                productos.removeAll(productos);
-                Tabla.setItems(ObtenerProd(query));
-            } catch (SQLException ex) {
-                Logger.getLogger(ConsultasController.class.getName()).log(Level.SEVERE, null, ex);
+            if(Marca.getValue() != null && Producto.getValue() != null && Modelo.getText().length()==0){
+                System.out.println("No hay nada en textfield");                
+                query += "WHERE Marca = '"+Marca.getValue()+"' AND Nombre = '"+Producto.getValue()+"'";
+                System.out.println(query);
+                try {   
+                    Tabla.refresh();
+                    productos.removeAll(productos);
+                    Tabla.setItems(ObtenerProd(query));
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConsultasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            System.out.println(Modelo.getText() + " Modelo");
+            System.out.println(Marca.getValue() + " Marca");
+            System.out.println(Producto.getValue() + " Producto");
+            if(Marca.getValue() != null && Producto.getValue() != null && Modelo.getText().length()>0){
+                query += "WHERE Modelo='"+Modelo.getText()+"' AND Marca = '"+Marca.getValue()+"' AND Nombre = '"+Producto.getValue()+"'";
+                System.out.println(query);
+                try {   
+                    Tabla.refresh();
+                    productos.removeAll(productos);
+                    Tabla.setItems(ObtenerProd(query));
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConsultasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         

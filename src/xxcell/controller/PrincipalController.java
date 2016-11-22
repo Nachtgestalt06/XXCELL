@@ -60,6 +60,7 @@ public class PrincipalController implements Initializable {
     private AnchorPane RecursosHumanos = null;
     private Node ModificarAlmacen = null;
     private Node ModificarEmpleado = null;
+    private Node MostrarNomina = null;
     private Node Login = null;
     
     Node principal = null;
@@ -207,15 +208,16 @@ public class PrincipalController implements Initializable {
                     }
                     break;
                     
-//                    case F4: {
-//                        if(Variables_Globales.Rol.equals("0"))
-//                        try {
-//                            mostrarRecursosHumanos();
-//                        } catch (IOException ex) {
-//                            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-//                    break;
+                    case F4: {
+                        if(Variables_Globales.Rol.equals("0"))
+                        try {
+                            mostrarRecursosHumanos();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    break;
+                    
                     case SPACE : {
                         if (drawer.isHidden() || drawer.isHidding()) drawer.open();
                         else drawer.close();
@@ -234,25 +236,8 @@ public class PrincipalController implements Initializable {
             }
         });
         
-        //cerrar();
     }
-    
-    @FXML
-    public void exitApplication(ActionEvent event) {
-        System.out.println("Holis culero");
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            Platform.exit();
-        } else {
-            // ... user chose CANCEL or closed the dialog
-        }        
-    }
-            
+      
     private void mostrarVenta() throws IOException {   
         flagVentas = true;
         Venta = FXMLLoader.load(getClass().getResource("/xxcell/view/Venta.fxml"));
@@ -313,6 +298,14 @@ public class PrincipalController implements Initializable {
                         }
                         }
                         break;
+                        case "Nomina" : {
+                        try {
+                            mostrarNomina();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        }
+                        break;
                     }
                 });
             }
@@ -349,6 +342,11 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(decorator);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    
+    private void mostrarNomina() throws IOException{
+        MostrarNomina = FXMLLoader.load(getClass().getResource("/xxcell/view/NominaEmpleados.fxml"));
+        drawer.setContent(MostrarNomina);
     }
 
     private void cerrar() {

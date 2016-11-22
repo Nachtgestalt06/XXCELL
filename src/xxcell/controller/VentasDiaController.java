@@ -29,9 +29,8 @@ public class VentasDiaController implements Initializable {
     
     @FXML
     private TableView<Detalles> Tabla;
-     @FXML
+    @FXML
     private TableColumn<Detalles, Number> Folio;
-
     @FXML
     private TableColumn<Detalles, String> Codigo;
 
@@ -63,7 +62,7 @@ public class VentasDiaController implements Initializable {
                 folio = conn.setResult.getInt("ventaFolio");
                 codigo = conn.setResult.getString("productoCodigo");
                 producto = conn.setResult.getString("productoNombre");
-                cantidad = conn.setResult.getInt("ventaCantidad");
+                cantidad = conn.setResult.getInt("ventaFolio");
                 total = (conn.setResult.getFloat("productoPrecio"))*cantidad;
                 cantidadproductos = cantidadproductos + cantidad;
                 totalvendido = totalvendido + total;

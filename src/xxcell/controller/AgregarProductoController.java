@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
@@ -19,7 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.controlsfx.control.textfield.TextFields;
 import xxcell.Conexion.Conexion;
 
@@ -203,7 +206,7 @@ public class AgregarProductoController implements Initializable {
         int entradas = Integer.parseInt(lblVistaEntradas.getText());
         int salidas = Integer.parseInt(lblVistaSalidas.getText());
         
-        String query = "SELECT * FROM productos WHERE ID='"+IDTxt.getText()+"'";
+        String query = "SELECT * FROM productos WHERE usuario='"+IDTxt.getText()+"'";
         conn.QueryExecute(query);
             try {
                 //SI EL ID YA EXISTE EN LA BASE DE DATOS cancela el alta.
@@ -251,6 +254,41 @@ public class AgregarProductoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        StringConverter<String> formatter;
+        //TextFormatter para permitir solo el uso de numeros en los campos Telefono y Numero de empleado
+        formatter = new StringConverter<String>() {
+            @Override
+            public String fromString(String string) {
+                if (string.length() == 13)
+                   return string;
+                else
+                if (string.length() == 12 && string.indexOf('-') == -1)
+                   return string.substring(0, 4) + "-" + 
+                          string.substring(4);
+                else
+                   return "";
+             }
+
+            @Override
+            public String toString(String object) {
+               if (object == null)   // only null when called from 
+                  return ""; // TextFormatter constructor 
+                                     // without default
+               return object;
+            }
+         };
+        
+        UnaryOperator<TextFormatter.Change> filter;
+        filter = (TextFormatter.Change change) -> {
+            String text = change.getText();
+            for (int i = 0; i < text.length(); i++)
+                if (!Character.isDigit(text.charAt(i)))
+                    return null;
+            return change;
+        };
+        
+        
         //Agrega a los texfields la lista de posibles resultados
         Tipotxt.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             Autocompletar();
@@ -270,6 +308,11 @@ public class AgregarProductoController implements Initializable {
         Disptxt.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             txtEjemploJtextFieldChanged();
         });
+        //TextFormater para solo poder teclear numeros
+        TFL127.setTextFormatter(new TextFormatter<String>(formatter,"",filter));
+        TFL64.setTextFormatter(new TextFormatter<String>(formatter,"",filter));
+        TFL58.setTextFormatter(new TextFormatter<String>(formatter,"",filter));
+        Disptxt.setTextFormatter(new TextFormatter<String>(formatter,"",filter));
 
         //Boton Agregar
         Agregar.setOnAction((ActionEvent e) -> {

@@ -3,9 +3,11 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76D7EA;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.RecursosHumanosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #b4e1bb;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xxcell.controller.RecursosHumanosController">
    <children>
-      <JFXButton fx:id="AgregarEmp" accessibleText="AgregarEmpleado" layoutX="46.0" layoutY="131.0" onAction="#AddEmpleadoAction" prefHeight="139.0" prefWidth="207.0" style="-fx-background-color: #3AA8C1;" text="Agregar Empleado" />
-      <JFXButton fx:id="Modificar" accessibleText="ModificarEmpleado" layoutX="450.0" layoutY="130.0" prefHeight="140.0" prefWidth="210.0" text="Modificar RH" />
+      <JFXButton fx:id="AgregarEmp" accessibleText="AgregarEmpleado" layoutX="87.0" layoutY="84.0" onAction="#AddEmpleadoAction" prefHeight="108.0" prefWidth="174.0" style="-fx-background-color: #3AA8C1;" text="Agregar Empleado" />
+      <JFXButton fx:id="Modificar" accessibleText="ModificarEmpleado" layoutX="332.0" layoutY="61.0" prefHeight="139.0" prefWidth="200.0" style="-fx-background-color: #c7cdd8;" text="Modificar RH" />
+      <JFXButton fx:id="Nominas" accessibleText="Nomina" layoutX="350.0" layoutY="260.0" prefHeight="96.0" prefWidth="166.0" style="-fx-background-color: #b3c4d8;" text="Nominas" />
+      <JFXButton fx:id="Sueldos" layoutX="53.0" layoutY="218.0" onAction="#VentanaSueldos" prefHeight="150.0" prefWidth="227.0" style="-fx-background-color: #eff5d1;" text="Sueldos" />
    </children>
 </AnchorPane>
