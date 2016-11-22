@@ -7,5 +7,5 @@ public class Variables_Globales {
     static String totalVenta;
     static boolean ventaRealizada;
     static Productos BusquedaVenta = new Productos();
-    static String local = "127";
+    static String local = "L127";
 }

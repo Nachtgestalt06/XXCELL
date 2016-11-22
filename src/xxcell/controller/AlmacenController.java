@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package xxcell.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -41,20 +36,4 @@ public class AlmacenController implements Initializable {
         principalStage.initOwner(AgregProd.getScene().getWindow());
         principalStage.showAndWait(); 
     }
-    
-    /*/@FXML
-    void AddActionModificar(ActionEvent event) throws IOException {
-        
-        /*Parent principal;
-        principal = FXMLLoader.load(getClass().getResource("/xxcell/view/ModificarAlmacen.fxml"));
-        Stage principalStage = new Stage();
-        scene = new Scene(principal);
-        principalStage.setScene(scene);
-        principalStage.initModality(Modality.APPLICATION_MODAL);
-        principalStage.initOwner(AgregProd.getScene().getWindow());
-        principalStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        principalStage.setFullScreen(true);
-        principalStage.showAndWait();
-        
-    }*/
 }

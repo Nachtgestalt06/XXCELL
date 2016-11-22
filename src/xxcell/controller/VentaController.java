@@ -21,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -81,6 +80,12 @@ public class VentaController implements Initializable {
     @FXML
     private Label lblDescuento;
     
+    @FXML
+    private Label lblTotal;
+
+    @FXML
+    private Label lblProductosCant;
+    
     //Lista para Llenar la tabla de productos;
     ObservableList<ProductoVenta> productosVenta = FXCollections.observableArrayList();
     ObservableList<ObservableList<ProductoVenta>> auxProductosVenta = FXCollections.observableArrayList();
@@ -116,52 +121,21 @@ public class VentaController implements Initializable {
     private JFXTextField txtDescuento;
 
     @FXML
-    private Label lblTotal;
-
-    @FXML
-    private Label lblProductosCant;
-
-    @FXML
     private Spinner<Integer> spnFolio;
     
     boolean agruparProductos;
     boolean flagVentaEspera = false;
-    Conexion conn = new Conexion();
-    
     int usuario;
+    Conexion conn = new Conexion();
     
     private Alert alert;
     private Dialog dialog;
     
     Funciones fun = new Funciones();
-    
-    @FXML
-    void BusquedaTabla(ActionEvent event) throws IOException, SQLException {
-        Parent principal;
-        principal = FXMLLoader.load(getClass().getResource("/xxcell/view/BusquedaVenta.fxml"));
-        Stage principalStage = new Stage();
-        scene = new Scene(principal);
-        principalStage.setScene(scene);
-        principalStage.initModality(Modality.APPLICATION_MODAL);
-        principalStage.initOwner(btnSearch.getScene().getWindow());
-        principalStage.showAndWait(); 
-        System.out.println(Variables_Globales.BusquedaVenta.getID());
-         if(Variables_Globales.BusquedaVenta.getID() != null){
-            txtCodigoBarras.setText(Variables_Globales.BusquedaVenta.getID());
-            if(!ProductoEnVenta()){
-                try {
-                    tblProductos.setItems(ObtenerProd());
-                } catch (SQLException ex) {
-                    Logger.getLogger(VentaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            txtCodigoBarras.requestFocus();
-        }
-
-    }
-    
+       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //********** Shortcuts de los botones *************
         Platform.runLater(()-> {
             paneBotones.requestFocus();
             btnSearch.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN), new Runnable(){
@@ -199,9 +173,7 @@ public class VentaController implements Initializable {
                 }            
             });
         });
-        
-        tblProductos.setPlaceholder(new Label(""));
-        
+               
         tblColCodigo.setCellValueFactory(cellData -> cellData.getValue().codigoProperty());
         tblColNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         tblColModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
@@ -216,9 +188,9 @@ public class VentaController implements Initializable {
             //Cambia los valores de los label Total y Productos al editar la celda
             @Override
             public void handle(TableColumn.CellEditEvent<ProductoVenta, String> event) {
+                double total;
                 double importe;
                 int productos;
-                double total;
                 String cantidad;
                 String precio;
                 String preimporte;
@@ -234,7 +206,7 @@ public class VentaController implements Initializable {
                 cantidad = ((ProductoVenta) event.getTableView().getItems().get(event.getTablePosition().getRow())).getCantidad();
                 precio = ((ProductoVenta) event.getTableView().getItems().get(event.getTablePosition().getRow())).getPrecio();
                 
-                
+
                 importe = Integer.valueOf(cantidad) * Double.valueOf(precio);
                 productos = (Integer.valueOf(lblProductosCant.getText()) + Integer.valueOf(cantidad))-Integer.valueOf(precantidad);
                 
@@ -255,8 +227,6 @@ public class VentaController implements Initializable {
             //Cambia los valores de los label Total y Productos al editar la celda
             @Override
             public void handle(TableColumn.CellEditEvent<ProductoVenta, String> event) {
-                double importe;
-                double total;
                 String cantidad;
                 String precio;
                 String preciobase;
@@ -264,6 +234,8 @@ public class VentaController implements Initializable {
                 String descuento;
                 String importeS;
                 double descontado;
+                double importe;
+                double total;
                 
                 DecimalFormat formateadorPorc = new DecimalFormat("####.##");
                 DecimalFormat formateador = new DecimalFormat("####.00");
@@ -287,7 +259,6 @@ public class VentaController implements Initializable {
                 ((ProductoVenta) event.getTableView().getItems().get(event.getTablePosition().getRow())).setImporteProperty(importeS);
                 ((ProductoVenta) event.getTableView().getItems().get(event.getTablePosition().getRow())).setDescuentoProperty(descuento);
                 
-                
                 total = (Double.valueOf(lblTotal.getText()) + Double.valueOf(importe)) - Double.valueOf(preimporte);
                 lblTotal.setText(formateador.format(total));
                 
@@ -302,9 +273,9 @@ public class VentaController implements Initializable {
             @Override
             public void handle(TableColumn.CellEditEvent<ProductoVenta, String> event) {
                 double importe;
-                int productos;
                 double total;
                 double descontado;
+                int productos;
                 String descuento;
                 String cantidad;
                 String precio;
@@ -345,7 +316,6 @@ public class VentaController implements Initializable {
             @Override
             public void handle(TableColumn.CellEditEvent<ProductoVenta, String> event) {
                 String importe;
-                int productos;
                 double total;
                 String cantidad;
                 String precio;
@@ -367,15 +337,6 @@ public class VentaController implements Initializable {
             }
         });
         
-        tblProductos.setEditable(true);
-        
-        inicializa();
-        
-        Date fechaHoy = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        
-        lblFecha.setText(formato.format(fechaHoy));
-                
         txtCodigoBarras.setOnKeyPressed((KeyEvent event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 if(!ProductoEnVenta()){
@@ -390,11 +351,9 @@ public class VentaController implements Initializable {
         
         txtDescuento.setOnKeyPressed((KeyEvent event) -> {
             double importe;
-            int productos;
             double total;
             double descontado;
             String descuento;
-            String cantidad;
             String precio;
             String preimporte;
             String precantidad;
@@ -411,12 +370,8 @@ public class VentaController implements Initializable {
                     productosVenta.get(fila).setDescuentoProperty(txtDescuento.getText());
 
                     descuento = productosVenta.get(fila).getDescuento();
-
-                    //cantidad = ((ProductoVenta) event.getTableView().getItems().get(event.getTablePosition().getRow())).getCantidad();
                     precio = productosVenta.get(fila).getPreciobase();
-
                     descontado = Integer.valueOf(descuento);
-                    //productos = (Integer.valueOf(lblProductosCant.getText()) + Integer.valueOf(cantidad))-Integer.valueOf(precantidad);
                     importe = Double.valueOf(precio) - ((descontado/100) * Double.valueOf(precio));
 
                     importeS = formateador.format(importe);
@@ -425,8 +380,6 @@ public class VentaController implements Initializable {
 
                     total = (Double.valueOf(lblTotal.getText()) + importe) - Double.valueOf(preimporte);
                     lblTotal.setText(formateador.format(total));
-                    
-                    
                 }
                 tblProductos.refresh();
                 txtCodigoBarras.requestFocus();
@@ -447,7 +400,41 @@ public class VentaController implements Initializable {
             decimal = lblTotal.getText().substring(longitud - lblTotal.getText().length())+"/100 M.N";
             lblImporteLetras.setText(fun.getStringofNumber(iEntero)+" PESOS "+decimal);
         });
+        
+        tblProductos.setEditable(true);
+        tblProductos.setPlaceholder(new Label(""));
+        
+        inicializa();
+        
+        Date fechaHoy = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+        lblFecha.setText(formato.format(fechaHoy));       
     }    
+    
+    @FXML
+    void BusquedaTabla(ActionEvent event) throws IOException, SQLException {
+        Parent principal;
+        principal = FXMLLoader.load(getClass().getResource("/xxcell/view/BusquedaVenta.fxml"));
+        Stage principalStage = new Stage();
+        scene = new Scene(principal);
+        principalStage.setScene(scene);
+        principalStage.initModality(Modality.APPLICATION_MODAL);
+        principalStage.initOwner(btnSearch.getScene().getWindow());
+        principalStage.showAndWait(); 
+        System.out.println(Variables_Globales.BusquedaVenta.getID());
+         if(Variables_Globales.BusquedaVenta.getID() != null){
+            txtCodigoBarras.setText(Variables_Globales.BusquedaVenta.getID());
+            if(!ProductoEnVenta()){
+                try {
+                    tblProductos.setItems(ObtenerProd());
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            txtCodigoBarras.requestFocus();
+        }
+    }
         
     @FXML
     void ActionIniciar(ActionEvent event) {
@@ -519,7 +506,6 @@ public class VentaController implements Initializable {
             if(Variables_Globales.ventaRealizada)
                 GrabarVenta();
         }
-
     }
     
     @FXML
@@ -536,7 +522,7 @@ public class VentaController implements Initializable {
         
     }    
     
-    //Accion para suprimir la fila seleccionada con la tecla DELETE
+    //Accion para suprimir la fila seleccionada de la tabla con la tecla DELETE
     @FXML
     void ActionDelete(KeyEvent event) {
         ObservableList<ProductoVenta> productoSeleccionado, todosProductos;
@@ -548,7 +534,7 @@ public class VentaController implements Initializable {
         String precio;
         String preimporte;
         String precantidad;
-        DecimalFormat formateador = new DecimalFormat("####.00");
+        DecimalFormat formateador = new DecimalFormat("###0.00");
                
         if(event.getCode() == KeyCode.DELETE){
             //Si se presiona la tecla DELETE se deben actualizar los label Total y Productos y eliminar la fila seleccionada
@@ -577,11 +563,8 @@ public class VentaController implements Initializable {
             precio = producto.getPrecio();
             System.out.println(producto.getCodigo());
             
-            //precio = productosVenta.get(fila).getPrecio().toString();
-
             productos = Integer.valueOf(cantidad) + 1;
             producto.setCantidadProperty(Integer.toString(productos));
-            //productosVenta.get(fila).setCantidadProperty(Integer.toString(productos));
 
             productos = Integer.valueOf(lblProductosCant.getText()) + 1;
             lblProductosCant.setText(String.valueOf(productos));
@@ -589,7 +572,6 @@ public class VentaController implements Initializable {
             //Importe de la venta
             total  = Double.valueOf(precio)*(Integer.valueOf(cantidad)+1);
             producto.setImporteProperty(Double.toString(total));
-            //productosVenta.get(fila).setImporteProperty(Double.toString(total));
 
             total = Double.valueOf(lblTotal.getText()) + Double.valueOf(precio);
             lblTotal.setText(formateador.format(total));
@@ -656,8 +638,7 @@ public class VentaController implements Initializable {
             txtDescuento.setVisible(venta);
             lblDescuento.setVisible(venta);
             btnVentaEspera.setDisable(!venta);
-            btnVentaEspera.setVisible(venta);
-            
+            btnVentaEspera.setVisible(venta);     
     }
     
     private boolean ProductoEnVenta(){
@@ -665,7 +646,6 @@ public class VentaController implements Initializable {
         String dato = "";
         String precio;
         String cantidad;
-        String costo;
         boolean result = false;
         int productos;
         double total;
@@ -705,8 +685,8 @@ public class VentaController implements Initializable {
     
     public ObservableList<ProductoVenta> ObtenerProd() throws SQLException {
         double total;
-        double costo;
-        double precio2;
+//        double costo;
+        //double precioBase;
         double utilidad;
         boolean continuar = true;
         int productos;
@@ -729,9 +709,11 @@ public class VentaController implements Initializable {
             try{
                 if(conn.setResult.next()){
                     if(conn.setResult.getInt("CantidadActual")<=0){
-                        alert.setHeaderText("Error");
-                        alert.setContentText("Productosin existencias");
+                        alert.setTitle("Punto de Venta - Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Producto sin existencias");
                         alert.showAndWait();
+                        txtCodigoBarras.setText("");
                         continuar = false;
                     }
                     if(continuar){
@@ -742,10 +724,8 @@ public class VentaController implements Initializable {
                         descuento = txtDescuento.getText();
                         preciobase = conn.setResult.getString("PrecPub");
                         importe = Double.toString(Double.valueOf(preciobase) - ((Double.valueOf(descuento)/100) * Double.valueOf(preciobase)));
+                        importe = formateador.format(Double.valueOf(importe));
                         precio = conn.setResult.getString("PrecPub");
-                        //importe = conn.setResult.getString("PrecPub");
-                        
-                        precio2 = conn.setResult.getDouble("PrecPub");
                         productosVenta.add(new ProductoVenta(codigo,nombre,modelo,cantidad,preciobase,precio,descuento,importe));
 
                         txtCodigoBarras.setText("");
@@ -757,8 +737,13 @@ public class VentaController implements Initializable {
                         lblTotal.setText(formateador.format(total));
                     }
                 } else{
-                        //JOptionPane.showMessageDialog(rootPane, "Producto no existe");
-                                //txtCodigo.setForeground(Color.red);
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Producto no encontrado");
+                    alert.setHeaderText(null);
+                    alert.setContentText("El producto no esta registrado");
+                    alert.initOwner(btnIniciar.getScene().getWindow());
+                    alert.showAndWait();
+                    txtCodigoBarras.setText("");
                 }
                 conn.setResult.close();
             } catch(SQLException e){
@@ -931,12 +916,12 @@ public class VentaController implements Initializable {
         if(!cancel){
                 query = "Update productos set Salidas = Salidas + " +can +",";
                 query += " CantidadActual = CantidadActual - "+can+",";
-                query += " L127 = L127 - "+can;
+                query += " "+Variables_Globales.local+" = "+Variables_Globales.local+" - "+can;
         }
         else {
                 query = "Update productos set Salidas = Salidas - " +can +",";
                 query += " CantidadActual = CantidadActual + "+can+",";
-                query += " L127 = L127 + "+can;
+                query += " "+Variables_Globales.local+" = "+Variables_Globales.local+" + "+can;
         }
 
         query += " Where ID='"+cod+"'";
@@ -999,5 +984,4 @@ public class VentaController implements Initializable {
 
         return result;
     }   
-    
 }

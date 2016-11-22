@@ -6,16 +6,21 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import static javafx.scene.input.KeyCode.F1;
 import javafx.scene.input.KeyEvent;
@@ -68,7 +73,16 @@ public class PrincipalController implements Initializable {
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(()->root.requestFocus());
+        Platform.runLater(()-> {
+            root.requestFocus();
+            //Lambda 
+            borderPane.getScene().getWindow().setOnCloseRequest(event -> {
+                event.consume();
+                cerrar();
+            }); 
+
+        });
+        
         
         VBox sideMenu = null;
         try {
@@ -193,15 +207,15 @@ public class PrincipalController implements Initializable {
                     }
                     break;
                     
-                    case F4: {
-                        if(Variables_Globales.Rol.equals("0"))
-                        try {
-                            mostrarRecursosHumanos();
-                        } catch (IOException ex) {
-                            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                    break;
+//                    case F4: {
+//                        if(Variables_Globales.Rol.equals("0"))
+//                        try {
+//                            mostrarRecursosHumanos();
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                    break;
                     case SPACE : {
                         if (drawer.isHidden() || drawer.isHidding()) drawer.open();
                         else drawer.close();
@@ -219,6 +233,24 @@ public class PrincipalController implements Initializable {
                 }
             }
         });
+        
+        //cerrar();
+    }
+    
+    @FXML
+    public void exitApplication(ActionEvent event) {
+        System.out.println("Holis culero");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Platform.exit();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }        
     }
             
     private void mostrarVenta() throws IOException {   
@@ -317,6 +349,19 @@ public class PrincipalController implements Initializable {
         Scene scene = new Scene(decorator);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void cerrar() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Salir del sistema");
+                //alert.setHeaderText("¿Desea realmente salir del sistema?");
+        alert.setContentText("¿Desea realmente salir del sistema?");
+        alert.initOwner(borderPane.getScene().getWindow());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            borderPane.getScene().getWindow().hide();
+        }         
     }
     
 }
